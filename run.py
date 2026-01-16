@@ -166,6 +166,10 @@ def fetch_ebay_rss(cfg: dict) -> List[Listing]:
     """
     # Put your RSS URLs here (4 searches: MAX 3W, MAX 5W, MAX D 3W, MAX D 5W)
     rss_urls = [
+  "PASTE_MAX_3W_RSS_HERE",
+  "PASTE_MAX_5W_RSS_HERE",
+  "PASTE_MAXD_3W_RSS_HERE",
+  "PASTE_MAXD_5W_RSS_HERE"
         # Example placeholder:
         # "https://www.ebay.com/sch/i.html?_nkw=...&rt=nc&_rss=1"
     ]
