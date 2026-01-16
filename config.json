@@ -1,0 +1,22 @@
+{
+  "email_to": "kcredrover@gmail.com",
+  "price_cap": 220,
+  "window_days": 45,
+  "min_local_samples": 5,
+  "local_price_adjustment": 1.05,
+  "local_locations": ["High Point", "Greensboro"],
+  "targets": {
+    "models": ["Paradym Ai Smoke MAX", "Paradym Ai Smoke MAX D"],
+    "club_types": ["3W", "5W"],
+    "hand": ["RH", "Right"],
+    "flex": ["Regular", "R"]
+  },
+  "reject_terms": [
+    "head only", "headonly", "adapter only", "shaft only",
+    "left", "lh", "stiff", "extra stiff", "x",
+    "dent", "crack", "rattle", "sky mark", "crown mark",
+    "well used", "play wear"
+  ],
+  "accept_condition_terms": ["mint", "like new", "excellent", "used demo"],
+  "cpo_accept_condition_terms": ["like new", "very good"]
+}
