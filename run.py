@@ -166,10 +166,10 @@ def fetch_ebay_rss(cfg: dict) -> List[Listing]:
     """
     # Put your RSS URLs here (4 searches: MAX 3W, MAX 5W, MAX D 3W, MAX D 5W)
     rss_urls = [
-  "PASTE_MAX_3W_RSS_HERE",
-  "PASTE_MAX_5W_RSS_HERE",
-  "PASTE_MAXD_3W_RSS_HERE",
-  "PASTE_MAXD_5W_RSS_HERE"
+  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+3+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=Callaway+Paradym+Ai+Smoke+Max&_osacat=0",
+  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+5+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1313&_odkw=callaway+paradigm+ai+smoke+max+3+wood&_osacat=0",
+  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+d+3+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1313&_odkw=callaway+paradigm+ai+smoke+max+d+5+wood&_osacat=0",
+  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+d+5+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1313&_odkw=callaway+paradigm+ai+smoke+max+5+wood&_osacat=0"
         # Example placeholder:
         # "https://www.ebay.com/sch/i.html?_nkw=...&rt=nc&_rss=1"
     ]
