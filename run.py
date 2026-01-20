@@ -97,12 +97,31 @@ def classify_variant(title: str) -> Tuple[str, str]:
 
 def extract_hand_flex(title: str, extra_text: str = "") -> Tuple[str, str]:
     t = (title + " " + (extra_text or "")).lower()
-    hand = "RH" if ("right" in t or "rh" in t) and ("left" not in t and "lh" not in t) else ""
-    flex = "Regular" if ("regular" in t or re.search(r"\bflex\s*r\b", t) or re.search(r"\br\b", t)) else ""
-    # NOTE: "\br\b" is too broad; we only use it if "flex" is nearby
-    if not flex and re.search(r"\bflex\s*r\b", t):
+
+    # Hand
+    hand = ""
+    if ("right" in t or re.search(r"\brh\b", t)) and not ("left" in t or re.search(r"\blh\b", t)):
+        hand = "RH"
+
+    # Flex (Regular)
+    flex = ""
+    regular_patterns = [
+        r"\bregular\b",
+        r"\breg\b",
+        r"\br-flex\b",
+        r"\br flex\b",
+        r"\bflex:\s*r\b",
+        r"\bflex\s*r\b",
+    ]
+    if any(re.search(p, t) for p in regular_patterns):
         flex = "Regular"
+
+    # Explicitly reject Stiff/X if present (safety)
+    if re.search(r"\bstiff\b|\bx-stiff\b|\bextra stiff\b|\bxs\b|\bx\b", t):
+        flex = ""
+
     return hand, flex
+
 
 
 def is_shafted_only_ok(title: str, reject_terms: List[str]) -> bool:
@@ -166,10 +185,10 @@ def fetch_ebay_rss(cfg: dict) -> List[Listing]:
     """
     # Put your RSS URLs here (4 searches: MAX 3W, MAX 5W, MAX D 3W, MAX D 5W)
     rss_urls = [
-  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+3+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=Callaway+Paradym+Ai+Smoke+Max&_osacat=0",
-  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+5+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1313&_odkw=callaway+paradigm+ai+smoke+max+3+wood&_osacat=0",
-  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+d+3+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1313&_odkw=callaway+paradigm+ai+smoke+max+d+5+wood&_osacat=0",
-  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+d+5+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1313&_odkw=callaway+paradigm+ai+smoke+max+5+wood&_osacat=0"
+  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+3+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1311&_odkw=Callaway+Paradym+Ai+Smoke+Max&_osacat=0&_rss=1",
+  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+5+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1313&_odkw=callaway+paradigm+ai+smoke+max+3+wood&_osacat=0&_rss=1",
+  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+d+3+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1313&_odkw=callaway+paradigm+ai+smoke+max+d+5+wood&_osacat=0&_rss=1",
+  "https://www.ebay.com/sch/i.html?_nkw=callaway+paradigm+ai+smoke+max+d+5+wood&_sacat=0&_from=R40&_trksid=p2334524.m570.l1313&_odkw=callaway+paradigm+ai+smoke+max+5+wood&_osacat=0&_rss=1"
         # Example placeholder:
         # "https://www.ebay.com/sch/i.html?_nkw=...&rt=nc&_rss=1"
     ]
