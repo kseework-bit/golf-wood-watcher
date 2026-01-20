@@ -1,6 +1,10 @@
 name: Daily Golf Wood Watcher
 
 on:
+concurrency:
+  group: golf-wood-watcher-main
+  cancel-in-progress: true
+
   schedule:
     - cron: "30 12 * * *"
   workflow_dispatch: {}
