@@ -34,8 +34,22 @@ jobs:
 
       - name: Commit updated baseline
         run: |
+          set -e
           git config user.name "golf-agent"
           git config user.email "golf-agent@users.noreply.github.com"
+
+          # Make sure we're up to date before committing/pushing
+          git pull --rebase origin main
+
           git add baseline.json
-          git commit -m "Update baseline" || echo "No changes to commit"
-          git push
+          if git diff --cached --quiet; then
+            echo "No changes to commit; skipping push."
+            exit 0
+          fi
+
+          git commit -m "Update baseline"
+
+          # Rebase again in case another run pushed while we were running
+          git pull --rebase origin main
+          git push origin main
+
